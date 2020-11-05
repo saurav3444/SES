@@ -9,6 +9,10 @@ import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
 public class SapientEmailService {
 	
 	public static final String HEADER = "<h1>Auto Communications Hub</h1>";
@@ -35,7 +39,7 @@ public class SapientEmailService {
 				+ "<a href="+ link + "></a>";
 		String subject = "Forgot Your Password?";
 
-		sendEmail(subject, htmlBodyForResetPassword);
+		awsSes(subject, htmlBodyForResetPassword);
 
 	}
 
@@ -46,7 +50,7 @@ public class SapientEmailService {
 
 		String subject = "Successful Registration";
 
-		sendEmail(subject, htmlBodyForSuccessfulRegistration);
+		awsSes(subject, htmlBodyForSuccessfulRegistration);
 
 	}
 
@@ -57,7 +61,7 @@ public class SapientEmailService {
 		
 		String subject = "Successful Password Reset";
 		
-		sendEmail(subject, htmlBodyForSuccessfulRegistration);
+		awsSes(subject, htmlBodyForSuccessfulRegistration);
 	}
 
 	public void customEmail(String subject, String text, String link) {
@@ -67,12 +71,12 @@ public class SapientEmailService {
 		+"<br>"
 		+ "<a href="+ link + "></a>";
 		
-		sendEmail(subject, htmlBodyCustomEmail);
+		awsSes(subject, htmlBodyCustomEmail);
 	}
 
 	
 
-	public void sendEmail(String subject, String htmlBody) {
+	public void awsSes(String subject, String htmlBody) {
 
 		try {
 			String type = "UTF-8";
@@ -100,11 +104,11 @@ public class SapientEmailService {
 	      
 	      client.sendEmail(request);
 	      
-	      System.out.println("Email sent!");
-	    } catch (Exception ex) {
-	      System.out.println("The email was not sent. Error message: " 
-	          + ex.getMessage());
-	    }
+	      log.info("Email sent!");
+		} catch (Exception ex) {
+			log.info("The email was not sent. Error message: ");
+			log.info(ex.getMessage());
+		}
 	  }
 
 }
