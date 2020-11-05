@@ -10,43 +10,74 @@ import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 
 public class SapientEmailService {
+	
+	public static final String HEADER = "<h1>Auto Communications Hub</h1>";
+	private String from;
+	private String to;
+	
+	public SapientEmailService(String from, String to) {
 
+		this.from = from;
+		this.to = to;
+	}
 
-	public void sendEmail(String from, String to, String subject, String text) {
-	 
-		String htmlBodyForResetPassword = "<h1>Auto Communications Service</h1>"
+	public void forgotPassword(String link) {
+		
+		String htmlBodyForResetPassword = HEADER
 				+ "<p>Hi,\r\n"
 				+ "\r\n"
 				+ "A password reset for your account was requested.\r\n"
 				+ "\r\n"
 				+ "Please click the link below to change your password.\r\n"
 				+ "\r\n"
-				+ "Note that this link is valid for 24 hours. After the time limit has expired, you will have to resubmit the request for a password reset.</p>"
 				+ "<br>"
-				+ "<p>"+ text + "</p>";
+				+ "<p>"+ link + "</p>"
+				+ "<a href="+ link + "></a>";
+		String subject = "Forgot Your Password?";
 
-		String htmlBodyForSuccessfulRegistration = "<h1>Auto Communications Service</h1>"
-				+ "<p>Hi,\r\n"
-				+ "\r\n"
-				+ "A Your ccount is successfully created.\r\n"
-				+ "\r\n"
-				+ "<br>"
-				+ "<p>"+ text + "</p>";
+		sendEmail(subject, htmlBodyForResetPassword);
+
+	}
+
+	public void successfulRegistration() {
 		
-		String htmlBody = null;
+		String htmlBodyForSuccessfulRegistration = HEADER 
+				+ "<p>Your Account is successfully created</p>";
+
+		String subject = "Successful Registration";
+
+		sendEmail(subject, htmlBodyForSuccessfulRegistration);
+
+	}
+
+	public void successfulPasswordReset() {
 		
-		if(subject.toLowerCase().contains("reset")||subject.toLowerCase().contains("password")) {
-			htmlBody = htmlBodyForResetPassword;
-		}
-		if(subject.toLowerCase().contains("successful")||subject.toLowerCase().contains("registration")) {
-			htmlBody = htmlBodyForSuccessfulRegistration;
-		}
+		String htmlBodyForSuccessfulRegistration = HEADER
+				+ "<p>Your Password is successfully changed</p>";
+		
+		String subject = "Successful Password Reset";
+		
+		sendEmail(subject, htmlBodyForSuccessfulRegistration);
+	}
+
+	public void customEmail(String subject, String text, String link) {
+
+		String htmlBodyCustomEmail = HEADER
+		+"<p>"+text+"</p>"
+		+"<br>"
+		+ "<a href="+ link + "></a>";
+		
+		sendEmail(subject, htmlBodyCustomEmail);
+	}
+
+	
+
+	public void sendEmail(String subject, String htmlBody) {
 
 		try {
-			//String CONFIGSET = "ConfigSet";
 			String type = "UTF-8";
 			AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder.standard()
-					.withRegion(Regions.US_EAST_2).build();
+					.withRegion(Regions.US_EAST_1).build();
 	     
 			SendEmailRequest request = new SendEmailRequest()
 					.withDestination(new Destination()
@@ -60,13 +91,12 @@ public class SapientEmailService {
 							
 							.withText(new Content()
 								.withCharset(type)
-								.withData("heyyy")))
+								.withData("")))
 											
 							.withSubject(new Content()
 								.withCharset(type)
 								.withData(subject)))
 							.withSource(from);
-							//.withConfigurationSetName(CONFIGSET);
 	      
 	      client.sendEmail(request);
 	      
