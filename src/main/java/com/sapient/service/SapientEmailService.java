@@ -35,8 +35,7 @@ public class SapientEmailService {
 				+ "Please click the link below to change your password.\r\n"
 				+ "\r\n"
 				+ "<br>"
-				+ "<p>"+ link + "</p>"
-				+ "<a href="+ link + "></a>";
+				+"<a href="+link+">"+link+"</a>";
 		String subject = "Forgot Your Password?";
 
 		awsSes(subject, htmlBodyForResetPassword);
@@ -104,7 +103,7 @@ public class SapientEmailService {
 	      
 	      client.sendEmail(request);
 	      
-	      log.info("Email sent!");
+	     log.info("Email sent!");
 		} catch (Exception ex) {
 			log.info("The email was not sent. Error message: ");
 			log.info(ex.getMessage());
