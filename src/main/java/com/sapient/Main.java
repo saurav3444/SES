@@ -8,7 +8,7 @@ import com.sapient.service.SapientEmailService;
 public class Main {
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		AWSCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
 		credentialsProvider.getCredentials();
 

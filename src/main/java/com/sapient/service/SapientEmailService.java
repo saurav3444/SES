@@ -8,11 +8,8 @@ import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import com.sapient.exception.EmailNotSentException;
 
-import lombok.extern.slf4j.Slf4j;
-
-
-@Slf4j
 public class SapientEmailService {
 	
 	public static final String HEADER = "<h1>Auto Communications Hub</h1>";
@@ -25,7 +22,7 @@ public class SapientEmailService {
 		this.to = to;
 	}
 
-	public void forgotPassword(String link) {
+	public void forgotPassword(String link) { 
 		
 		String htmlBodyForResetPassword = HEADER
 				+ "<p>Hi,\r\n"
@@ -53,7 +50,7 @@ public class SapientEmailService {
 
 	}
 
-	public void successfulPasswordReset() {
+	public void successfulPasswordReset() { 
 		
 		String htmlBodyForSuccessfulRegistration = HEADER
 				+ "<p>Your Password is successfully changed</p>";
@@ -103,11 +100,8 @@ public class SapientEmailService {
 	      
 	      client.sendEmail(request);
 	      
-	     log.info("Email sent!");
 		} catch (Exception ex) {
-			log.info("The email was not sent. Error message: ");
-			log.info(ex.getMessage());
+			throw new EmailNotSentException(ex);
 		}
 	  }
-
 }
