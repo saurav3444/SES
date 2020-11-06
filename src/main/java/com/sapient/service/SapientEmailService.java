@@ -56,7 +56,7 @@ public class SapientEmailService {
 
 	public void successfulRegistration(String text) {
 		
-		String htmlBodyForSuccessfulRegistration = HEADER
+		String htmlBodyForSuccessfulRegistration ="<h1>" + HEADER + "</h1>"
 				+ "<p>Welcome to Auto Communications Hub,\r\n"
 				+ "<br>"
 				+ text +"</p>";
@@ -69,7 +69,7 @@ public class SapientEmailService {
 
 	public void successfulPasswordReset() { 
 		
-		String htmlBodyForSuccessfulRegistration = HEADER
+		String htmlBodyForSuccessfulRegistration ="<h1>" + HEADER + "</h1>"
 				+ "<p>Your Password is successfully changed</p>";
 		
 		String subject = "Successful Password Reset";
@@ -79,7 +79,7 @@ public class SapientEmailService {
 
 	public void customEmail(String subject, String text, String link) {
 
-		String htmlBodyCustomEmail = HEADER
+		String htmlBodyCustomEmail = "<h1>" + HEADER + "</h1>"
 		+"<p>"+text+"</p>"
 		+"<br>"
 		+"<a href="+link+">"+link+"</a>";
