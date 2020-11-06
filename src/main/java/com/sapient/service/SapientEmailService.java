@@ -12,9 +12,10 @@ import com.sapient.exception.EmailNotSentException;
 
 public class SapientEmailService {
 	
-	public static final String HEADER = "<h1>Auto Communications Hub</h1>";
+	public static final String HEADER = "Auto Communications Hub";
 	private String from;
 	private String to;
+	private Regions regions = Regions.US_EAST_1;
 	
 	public SapientEmailService(String from, String to) {
 
@@ -22,27 +23,43 @@ public class SapientEmailService {
 		this.to = to;
 	}
 
+	public void setRegions(Regions regions) {
+		this.regions = regions;
+	}
+	
 	public void forgotPassword(String link) { 
 		
-		String htmlBodyForResetPassword = HEADER
-				+ "<p>Hi,\r\n"
+		String htmlBodyForResetPassword = "<h1>" + HEADER + "</h1>"
+				+ "<p>Dear Auto Communications Hub user,\r\n"
 				+ "\r\n"
-				+ "A password reset for your account was requested.\r\n"
+				+ "A we have received a request of Password Reset for your account.\r\n"
 				+ "\r\n"
-				+ "Please click the link below to change your password.\r\n"
+				+ " If you requested this verification, please go to the following URL and click the link below to change your password.\r\n"
 				+ "\r\n"
 				+ "<br>"
-				+"<a href="+link+">"+link+"</a>";
+				+"<a href="+link+">"+link+"</a>"
+				+"<br>"
+				+"<br>"
+				+ "If you did NOT request to verify this email address, do not click on the link. Please note that many times, "
+				+ "\r\n"
+				+ "the situation isn't a phishing attempt, but either a misunderstanding of how to use our service, "
+				+ "\r\n"
+				+ "or someone setting up email-sending capabilities on your behalf as part of a legitimate service, "
+				+ "\r\n"
+				+ "but without having fully communicated the procedure first." + "</p>";
+		
 		String subject = "Forgot Your Password?";
 
 		awsSes(subject, htmlBodyForResetPassword);
 
 	}
 
-	public void successfulRegistration() {
+	public void successfulRegistration(String text) {
 		
-		String htmlBodyForSuccessfulRegistration = HEADER 
-				+ "<p>Your Account is successfully created</p>";
+		String htmlBodyForSuccessfulRegistration = HEADER
+				+ "<p>Welcome to Auto Communications Hub,\r\n"
+				+ "<br>"
+				+ text +"</p>";
 
 		String subject = "Successful Registration";
 
@@ -65,11 +82,15 @@ public class SapientEmailService {
 		String htmlBodyCustomEmail = HEADER
 		+"<p>"+text+"</p>"
 		+"<br>"
-		+ "<a href="+ link + "></a>";
+		+"<a href="+link+">"+link+"</a>";
 		
 		awsSes(subject, htmlBodyCustomEmail);
 	}
 
+	public void customEmailWithHtmlBody(String subject, String htmlBody) {
+
+		awsSes(subject, htmlBody);
+	}
 	
 
 	public void awsSes(String subject, String htmlBody) {
@@ -77,7 +98,7 @@ public class SapientEmailService {
 		try {
 			String type = "UTF-8";
 			AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder.standard()
-					.withRegion(Regions.US_EAST_1).build();
+					.withRegion(this.regions).build();
 	     
 			SendEmailRequest request = new SendEmailRequest()
 					.withDestination(new Destination()
@@ -87,11 +108,7 @@ public class SapientEmailService {
 							.withBody(new Body()
 								.withHtml(new Content()
 								.withCharset(type)
-								.withData(htmlBody))
-							
-							.withText(new Content()
-								.withCharset(type)
-								.withData("")))
+								.withData(htmlBody)))
 											
 							.withSubject(new Content()
 								.withCharset(type)
