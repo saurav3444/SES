@@ -4,7 +4,11 @@ A simplified Java Library for sending emails using the Amazon Simple Email Servi
 
 ### Steps to use Sapient Email Service
 
-## 1. Dependencies required
+## 1. Clone this repository and run
+
+    mvn clean install
+
+## 2. Dependencies required
 
 ```
 <dependency>
@@ -24,7 +28,16 @@ A simplified Java Library for sending emails using the Amazon Simple Email Servi
 </dependency>
 ```
 
-## 2. Add AWS credenditals
+```
+<dependency>
+	<groupId>com.sapient</groupId>
+	<artifactId>email-service</artifactId>
+	<version>1.0.0</version>
+<dependency>
+
+```
+
+## 3. Add AWS credenditals
 
 In your user directory under .aws folder add a file named credentials
 example for windows: C:\Users\saukumar17\ .aws\credentials
@@ -37,12 +50,6 @@ aws_secret_access_key=08QYRNWOgpHyTLmuoMGZSzSivSKdRVsguY3WNcpu
 
 ```
 
-## 3. Add jar file in this repository or build this project on jenkins to generate the same
-
-1.Download jar file in target folder email-service-1.0.0
-2.In eclipse goto build path -> add external jar file -> select downloaded jar file
-3.Update project
-
 ## 4. Usage
 
 Run this Main class, If no exception is thrown mail is sent successfully.
@@ -54,16 +61,15 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.sapient.service.SapientEmailService;
 
-
 public class Main {
 
-
 	public static void main(String[] args) throws Exception {
+
 		AWSCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
 		credentialsProvider.getCredentials();
 
-		String from = "info-@autocommunicationshub-com.awsapps.com";
-		String to = "info-@autocommunicationshub-com.awsapps.com";
+		String from = "admin@autocommunicationshub.com";
+		String to = "admin@autocommunicationshub.com";
 
 		SapientEmailService email = new SapientEmailService(from, to);
 
@@ -72,10 +78,12 @@ public class Main {
 		String link = "https://www.google.com";
 
 		email.customEmail(subject, text, link);
-		email.forgotPassword(link);
-		email.successfulPasswordReset();
-		email.successfulRegistration();
 
+		email.forgotPassword(link);
+
+		email.successfulPasswordReset();
+
+		email.successfulRegistration("saurav 1209 9021342109");
 	}
 }
 
@@ -85,5 +93,5 @@ public class Main {
 
 go to [Amazon Work mail](https://autocommunicationshub-com.awsapps.com/mail)
 
-username: info<br>
+username: admin<br>
 password: psiotb#123
