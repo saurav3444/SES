@@ -1,3 +1,6 @@
 
-**/Main.*
-/target/**
+Main.*
+**/target
+**/.classpath
+**/.project
+**/.settings
