@@ -6,13 +6,13 @@ import com.sapient.service.SapientEmailService;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args)  {
 
 		AWSCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
 		credentialsProvider.getCredentials();
 
 		String from = "admin@autocommunicationshub.com";
-		String to = "admin@autocommunicationshub.com";
+		String to = "saurav3444@gmail.com";
 
 		SapientEmailService email = new SapientEmailService(from, to);
 
@@ -20,13 +20,14 @@ public class Main {
 		String subject = "welcome";
 		String link = "https://www.google.com";
 		
-		email.customEmail(subject, text, link);
-		
 		email.forgotPassword(link);
 		
 		email.successfulPasswordReset();
 		
 		email.successfulRegistration("saurav 1209 9021342109");
+		
+		email.customEmail(subject, text, link);
+		
 		
 		
 
