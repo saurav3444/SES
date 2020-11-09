@@ -12,7 +12,7 @@ import com.sapient.exception.EmailNotSentException;
 
 public class SapientEmailService {
 	
-	public static final String HEADER = "Auto Communications Hub";
+	private  String header = "Auto Communications Hub";
 	private String from;
 	private String to;
 	private Regions regions = Regions.US_EAST_1;
@@ -26,10 +26,14 @@ public class SapientEmailService {
 	public void setRegions(Regions regions) {
 		this.regions = regions;
 	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
 	
 	public void forgotPassword(String link) { 
 		
-		String htmlBodyForResetPassword = "<h1>" + HEADER + "</h1>"
+		String htmlBodyForResetPassword = "<h1>" + header + "</h1>"
 				+ "<p>Dear Auto Communications Hub user,\r\n"
 				+ "\r\n"
 				+ "A we have received a request of Password Reset for your account.\r\n"
@@ -56,7 +60,7 @@ public class SapientEmailService {
 
 	public void successfulRegistration(String text) {
 		
-		String htmlBodyForSuccessfulRegistration ="<h1>" + HEADER + "</h1>"
+		String htmlBodyForSuccessfulRegistration ="<h1>" + header + "</h1>"
 				+ "<p>Welcome to Auto Communications Hub,\r\n"
 				+ "<br>"
 				+ text +"</p>";
@@ -69,7 +73,7 @@ public class SapientEmailService {
 
 	public void successfulPasswordReset() { 
 		
-		String htmlBodyForSuccessfulRegistration ="<h1>" + HEADER + "</h1>"
+		String htmlBodyForSuccessfulRegistration ="<h1>" + header + "</h1>"
 				+ "<p>Your Password is successfully changed</p>";
 		
 		String subject = "Successful Password Reset";
@@ -79,7 +83,7 @@ public class SapientEmailService {
 
 	public void customEmail(String subject, String text, String link) {
 
-		String htmlBodyCustomEmail = "<h1>" + HEADER + "</h1>"
+		String htmlBodyCustomEmail = "<h1>" + header + "</h1>"
 		+"<p>"+text+"</p>"
 		+"<br>"
 		+"<a href="+link+">"+link+"</a>";
