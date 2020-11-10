@@ -12,28 +12,10 @@ A simplified Java Library for sending emails using the Amazon Simple Email Servi
 
 ```
 <dependency>
-  <groupId>com.amazonaws</groupId>
-  <artifactId>aws-java-sdk</artifactId>
-  <version>1.11.256</version>
-  <scope>compile</scope>
-</dependency>
-```
-
-```
-<dependency>
-  <groupId>com.amazonaws</groupId>
-  <artifactId>amazon-kinesis-client</artifactId>
-  <version>1.2.1</version>
-  <scope>compile</scope>
-</dependency>
-```
-
-```
-<dependency>
 	<groupId>com.sapient</groupId>
 	<artifactId>email-service</artifactId>
 	<version>1.0.0</version>
-<dependency>
+</dependency>
 
 ```
 
@@ -45,8 +27,8 @@ In that credentials file add :
 
 ```
 [default]
-aws_access_key_id=AKIAQNYMR7A7KLLQ7NDJ
-aws_secret_access_key=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
+aws_access_key_id=***
+aws_secret_access_key=***
 
 ```
 
@@ -57,41 +39,34 @@ Run this Main class, If no exception is thrown mail is sent successfully.
 ```
 package com.sapient;
 
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.sapient.service.SapientEmailService;
 
-public class Main {
+public static void main(String[] args)  {
 
-	public static void main(String[] args) throws Exception {
 
-		AWSCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
-		credentialsProvider.getCredentials();
 
-		String from = "admin@autocommunicationshub.com";
-		String to = "admin@autocommunicationshub.com";
+		String to = "saurav3444@gmail.com";
 
-		SapientEmailService email = new SapientEmailService(from, to);
+		SapientEmailService email = new SapientEmailService();
 
 		String text = "Hello world.";
 		String subject = "welcome";
 		String link = "https://www.google.com";
 
-		email.customEmail(subject, text, link);
+		email.forgotPassword(to, link);
 
-		email.forgotPassword(link);
+		email.successfulPasswordReset(to);
 
-		email.successfulPasswordReset();
+		email.successfulRegistration(to, "saurav 1209 9021342109");
 
-		email.successfulRegistration("saurav 1209 9021342109");
-	}
+		email.customEmail(to, subject, text, link);
 }
 
 ```
 
 ## 5. Check Mail
 
-go to [Amazon Work mail](https://autocommunicationshub-com.awsapps.com/mail)
+go to [Amazon Work mail](https://autocommunicationshub.awsapps.com/mail)
 
 username: admin<br>
-password: psiotb#123
+password: \*\*\*\*
