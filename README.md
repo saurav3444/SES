@@ -12,7 +12,7 @@ A simplified Java Library for sending emails using the Amazon Simple Email Servi
 
 ```
 <dependency>
-	<groupId>com.sapient</groupId>
+	<groupId>com.autocommunicationshub</groupId>
 	<artifactId>email-service</artifactId>
 	<version>1.0.0</version>
 </dependency>
