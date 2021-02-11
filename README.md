@@ -1,4 +1,4 @@
-# Sapient Email Service using AWS-SES-API
+# An Email Service using AWS-SES-API
 
 A simplified Java Library for sending emails using the Amazon Simple Email Service.
 
@@ -22,7 +22,7 @@ A simplified Java Library for sending emails using the Amazon Simple Email Servi
 ## 3. Add AWS credenditals
 
 In your user directory under .aws folder add a file named credentials
-example for windows: C:\Users\saukumar17\ .aws\credentials
+example for windows: C:\Users\saukumar\ .aws\credentials
 In that credentials file add :
 
 ```
